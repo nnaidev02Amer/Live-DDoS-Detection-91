@@ -1,0 +1,10 @@
+﻿# Works on Windows (ML training/analysis scripts in Codes/ml). Tested on Python 3.14.2.
+pandas==3.1.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+numpy==2.5.5
+
+# Linux/WSL only (SDN controller). Install inside WSL/VM, NOT on Windows:
+#   ryu requires an older Python (3.8-3.10 recommended) and eventlet<0.31 style pins
+# ryu
+# eventlet==0.30.2

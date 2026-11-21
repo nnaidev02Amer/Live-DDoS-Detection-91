@@ -54,7 +54,7 @@ class MachineLearning():
         plt.xlabel('Classe predite')
         plt.ylabel('Nombre de flux')
         plt.tight_layout()
-        plt.style.use("seaborn-darkgrid")
+        plt.style.use("seaborn-v0_8-darkgrid")
         y = [cm[0][0],cm[0][1],cm[1][0],cm[1][1]]
         plt.bar(x,y, color="#e46e6e", label='KNN')
         plt.legend()

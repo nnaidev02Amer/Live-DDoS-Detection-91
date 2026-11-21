@@ -66,7 +66,7 @@ class MachineLearning():
         # plt.xlabel('Type de flux')
         # plt.ylabel('Nombre de flux')
         plt.tight_layout()
-        # plt.style.use("seaborn-darkgrid")
+        # plt.style.use("seaborn-v0_8-darkgrid")
         # plt.bar(['NORMAL','DDOS'],[benin,ddos])
         # plt.legend()
         
@@ -98,7 +98,7 @@ class MachineLearning():
         # plt.xlabel('Protocole')
         # plt.ylabel('Nombre de flux')
         # plt.tight_layout()
-        # plt.style.use("seaborn-darkgrid")
+        # plt.style.use("seaborn-v0_8-darkgrid")
         # plt.bar(['ICMP','TCP','UDP'],[icmp,tcp,udp])
         # plt.legend()
         
@@ -145,7 +145,7 @@ class MachineLearning():
         # plt.xlabel('Protocole')
         # plt.ylabel('Nombre de flux')
         # plt.tight_layout()
-        # plt.style.use("seaborn-darkgrid")
+        # plt.style.use("seaborn-v0_8-darkgrid")
         # plt.bar(['ICMP_N','ICMP_D','TCP_N','TCP_D','UDP_N','UDP_D'],[icmp_normal,icmp_ddos,tcp_normal,tcp_ddos,udp_normal,udp_ddos])
         # plt.legend()
         
@@ -162,7 +162,7 @@ class MachineLearning():
         # plt.xlabel('Temps de génération')
         # plt.ylabel('type de flux')
         # # plt.tight_layout()
-        # # plt.style.use("seaborn-darkgrid")
+        # # plt.style.use("seaborn-v0_8-darkgrid")
         # plt.plot(X_flow[:,0],y_flow)
         # # plt.legend()
         # plt.show()
@@ -173,7 +173,7 @@ class MachineLearning():
         # plt.xlabel('Classe predite')
         # plt.ylabel('Nombre de flux')
         # plt.tight_layout()
-        # plt.style.use("seaborn-darkgrid")
+        # plt.style.use("seaborn-v0_8-darkgrid")
         # y = [cm[0][0],cm[0][1],cm[1][0],cm[1][1]]
         # plt.bar(x,y, color="#1b7021", label='LR')
         # plt.legend()

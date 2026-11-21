@@ -110,7 +110,7 @@ class MachineLearning():
         plt.xlabel('Classe predite')
         plt.ylabel('Nombre de flux')
         plt.tight_layout()
-        plt.style.use("seaborn-darkgrid")
+        plt.style.use("seaborn-v0_8-darkgrid")
         # plt.style.use("dark_background")
         # plt.style.use("ggplot")
         if self.counter == 1:
