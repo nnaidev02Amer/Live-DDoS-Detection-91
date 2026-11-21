@@ -25,6 +25,19 @@ python Codes\ml\ML.py                # compare LR, KNN, NB, DT, RF
 Close a chart window to let the script finish. Stop anything running with Ctrl + C.
 `FlowStatsfile.csv` is not in the repo; you create it in Linux (see below) or supply your own.
 
+## Web dashboard (Streamlit) - http://localhost:8501
+```powershell
+cd "C:\Users\DELL\Desktop\kits projects\DDoS-Attack-Detection-and-Mitigation\.claude\worktrees\update-packages"
+.\venv\Scripts\Activate.ps1
+streamlit run dashboard\app.py       # open http://localhost:8501 ; stop with Ctrl + C
+```
+(If you merge the branch, run it from the main project folder instead; recreate `venv` there.)
+Tabs: **Live detection** (pick a 10 s window: traffic chart, normal-vs-DDoS verdict, victim host,
+simulated mitigation action), **Model accuracy** (LR/KNN/NB/DT/RF comparison + confusion matrix),
+**Data**. Uses synthetic sample traffic by default, or upload your own `FlowStatsfile.csv`.
+The dashboard re-implements the pipeline; the original code is unchanged and the mitigation
+shown is simulated (the real one needs Mininet + Ryu on Linux).
+
 ## Linux-only parts (Mininet, Open vSwitch, hping3, Ryu) - run in WSL2
 In PowerShell as Administrator (then reboot): `wsl --install -d Ubuntu-22.04`
 Inside Ubuntu:
