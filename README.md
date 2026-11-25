@@ -304,7 +304,6 @@ All screenshots show **synthetic data**.
 ├── Codes/                original Ryu, Mininet and ML scripts
 ├── tests/                automated tests
 ├── docs/                 report, demo guide, viva questions, screenshots
-├── Certificate/          certificate of the original project team
 ├── Installation_setup/   original virtual machine notes
 ├── .streamlit/           theme and server settings
 └── requirements.txt
