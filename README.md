@@ -22,7 +22,7 @@ controller would block the attack. It has a Streamlit dashboard that runs on Win
 [Run](#15-how-to-run-the-project) · [Dataset](#16-dataset-information) ·
 [Screenshots](#17-screenshots) · [Structure](#18-project-structure) ·
 [Limitations](#19-limitations) · [Future work](#20-future-enhancements) ·
-[Conclusion](#21-conclusion) · [Authors](#22-authors-and-contributions)
+[Conclusion](#21-conclusion) · [Author](#22-author)
 
 ---
 
@@ -340,18 +340,12 @@ validation, fair model comparison, window-based detection and a safe mitigation 
 It works as designed on synthetic data. Real-world accuracy and real blocking still have to be
 proven with a collected dataset and a live controller.
 
-## 22. Authors and contributions
+## 22. Author
 
-**Original project:**
-[DDoS-Attack-Detection-and-Mitigation](https://github.com/chiragbiradar/DDoS-Attack-Detection-and-Mitigation)
-by [Chirag Biradar](https://github.com/chiragbiradar). Contributors listed there:
-[Akash Kumar](https://github.com/AkaskumarAK),
-[Apoorv Bagal](https://github.com/ApoorvBagal),
-[Abhishek Ray](https://github.com/7abhishe). The Ryu, Mininet and original ML code in `Codes/`
-and the certificate in `Certificate/` come from that project.
+**[nnaidev02](https://github.com/nnaidev02Amer)** - author and maintainer of this repository:
+dashboard, `ddos` engine, simulated mitigation, victim-host bug fix, tests and documentation.
 
-**This repository** ([nnaidev02Amer](https://github.com/nnaidev02Amer)) builds on it with the
-dashboard, the `ddos` engine, simulated mitigation, a victim-host bug fix, tests and updated
-documentation. See the Git history for details.
-
-Released under the [MIT License](LICENSE), copyright (c) 2022 Chirag Biradar.
+Built on an
+[open-source project](https://github.com/chiragbiradar/DDoS-Attack-Detection-and-Mitigation),
+which is the source of the Ryu, Mininet and original ML code in `Codes/`. Released under the
+MIT License; the original copyright notice is kept in [LICENSE](LICENSE).

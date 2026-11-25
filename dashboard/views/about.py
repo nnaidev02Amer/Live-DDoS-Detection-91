@@ -168,7 +168,9 @@ mitigation simulation into one dashboard that a student can run on Windows. The 
 as designed on synthetic data. Accuracy on a real network and real blocking still have to be
 proven with a collected dataset and a live controller.
 
-### Credits
-Based on the open-source project by Chirag Biradar and contributors (Akash Kumar, Apoorv
-Bagal, Abhishek Ray), distributed under the licence in the `LICENSE` file.
+### Author
+**nnaidev02**
+
+Built on an open-source project released under the MIT License; the original copyright notice
+is kept in the `LICENSE` file.
 """)
