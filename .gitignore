@@ -8,3 +8,14 @@ PredictFlowStatsfile.csv
 models/
 data/
 .streamlit/secrets.toml
+# secrets, logs and local tool files
+.env
+.env.*
+*.log
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+# saved models
+*.joblib
+*.pkl

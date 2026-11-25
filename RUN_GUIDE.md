@@ -13,16 +13,13 @@ parts need Linux.
 - Original (unpinned) file kept as `requirements_old.txt`.
 
 ## Web dashboard - http://localhost:8501
-This code is on branch `update-packages`. Until it is merged, it lives in the worktree folder:
+Run these in the project folder (the folder that contains this file):
 ```powershell
-cd "C:\Users\DELL\Desktop\kits projects\DDoS-Attack-Detection-and-Mitigation\.claude\worktrees\update-packages"
 python -m venv venv                  # only if venv\ does not exist yet
 .\venv\Scripts\Activate.ps1          # if blocked: Set-ExecutionPolicy -Scope Process Bypass
 pip install -r requirements.txt      # only the first time
 streamlit run dashboard\app.py       # stop with Ctrl + C
 ```
-After merging, run the same commands from the main project folder.
-
 If the dashboard was started in the background and you need to stop it:
 ```powershell
 Get-NetTCPConnection -LocalPort 8501 -State Listen |

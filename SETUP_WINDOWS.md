@@ -60,7 +60,7 @@ sudo apt install -y mininet openvswitch-switch hping3 python3-venv python3-pip g
 # Ryu works best on Python <= 3.9; use pyenv or the deadsnakes PPA for 3.9
 python3.9 -m venv ~/ryu-env && source ~/ryu-env/bin/activate
 pip install "setuptools<58" "eventlet==0.30.2" ryu pandas scikit-learn
-git clone https://github.com/chiragbiradar/DDoS-Attack-Detection-and-Mitigation.git
+git clone https://github.com/nnaidev02Amer/Live-DDoS-Detection-91.git
 ```
 (If Mininet and Ryu run in the same Ubuntu, use `127.0.0.1` as controller IP.)
 
