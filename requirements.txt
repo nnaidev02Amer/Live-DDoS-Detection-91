@@ -1,8 +1,9 @@
-﻿# Works on Windows (ML training/analysis scripts in Codes/ml). Tested on Python 3.14.2.
+﻿# Everything below works on Windows (dashboard, ddos package, Codes/ml). Tested on Python 3.14.2.
 pandas==3.1.1
 scikit-learn==1.9.1
 matplotlib==3.11.2
 numpy==2.5.5
+joblib==1.6.0          # saving and loading trained models (ddos/models.py)
 # Dashboard (dashboard/app.py)
 streamlit==1.67.0
 plotly==7.1.0

@@ -1,0 +1,21 @@
+[theme]
+base = "dark"
+primaryColor = "#338ced"
+backgroundColor = "#0b1220"
+secondaryBackgroundColor = "#111a2b"
+textColor = "#e6edf7"
+borderColor = "#24324d"
+showWidgetBorder = true
+baseRadius = "0.5rem"
+
+[theme.sidebar]
+backgroundColor = "#0d1526"
+
+[server]
+# Only this computer can open the dashboard. Remove this line to share it on your network.
+address = "localhost"
+# The real FlowStatsfile.csv can be several hundred MB (limit is in MB).
+maxUploadSize = 1024
+
+[browser]
+gatherUsageStats = false

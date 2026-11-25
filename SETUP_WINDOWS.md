@@ -29,7 +29,7 @@ An SDN (Software Defined Network) lab that detects DDoS floods with machine lear
 ## Tools by platform
 | Tool | Windows native? | How to run |
 |---|---|---|
-| Python, pandas, scikit-learn, matplotlib | Yes | `venv` (below) |
+| Python, pandas, scikit-learn, matplotlib, Streamlit | Yes | `venv` (below) |
 | Mininet, Open vSwitch, hping3 | **No** (Linux kernel features) | WSL2 Ubuntu (recommended) or VirtualBox Ubuntu VM |
 | Ryu controller | **No** (needs older Python; fails to build on 3.14) | Same Ubuntu, Python 3.9/3.10 venv |
 
@@ -38,12 +38,15 @@ WSL2 + Mininet/OVS can be fiddly (kernel modules); if it fails, use a VirtualBox
 (the author's Mininet VM, see `Installation_setup/Readme.md`).
 
 ## A. Windows part (done on this machine, Python 3.14.2)
+Run these in the project folder (the one that contains this file).
 ```powershell
-cd "C:\Users\DELL\Desktop\kits projects\DDoS-Attack-Detection-and-Mitigation"
-python -m venv venv
+python -m venv venv                  # first time only
 .\venv\Scripts\Activate.ps1          # if blocked: Set-ExecutionPolicy -Scope Process Bypass
 pip install -r requirements.txt
+streamlit run dashboard\app.py       # dashboard on http://localhost:8501
 ```
+The dashboard and the `ddos` package (see `README.md`) need nothing from Linux. Mitigation in
+the dashboard is simulated.
 
 ## B. Linux part (WSL2 Ubuntu or VM) - one-time install
 Installing WSL needs admin and a reboot, so do it yourself (PowerShell as admin):
@@ -87,14 +90,23 @@ cd Codes\ml
 ```
 
 ## Status
-- [x] Repo cloned (branch `main`)
-- [x] venv + pandas / scikit-learn / matplotlib installed
-- [x] ML scripts compile; they stop at "FlowStatsfile.csv not found" (dataset missing)
+- [x] venv with the packages in `requirements.txt`
+- [x] Dashboard and `ddos` package run and are tested on Windows (synthetic data)
+- [x] `Codes/ml` scripts run on a synthetic CSV in the real column format
+- [ ] Real `FlowStatsfile.csv` - not available
 - [ ] WSL distro / VM with Mininet, OVS, hping3 - not installed
 - [ ] Ryu - cannot install on Windows / Python 3.14
-- [ ] Generate dataset, then run detection
+- [ ] Generate the real dataset, then run live detection
 
-## Known issues in the code (not changed)
+## Fixed
+- Controllers reported the wrong victim host: the predicted label was used as the row number.
+  Checked with stand-ins for Ryu, **not** with a real Ryu controller.
+
+## Known issues in the original code (not changed)
+- The controllers train on every column, including time and addresses (data leakage).
+- `flow_predict()` hides all errors with a bare `except: pass`.
+- `mitigation_module.py` never switches mitigation off after the first attack.
+- `Codes/Mitigation/mitigation_module.py` is a KNN variant that reads `dataset.csv`.
 - `generate_ddos_trafic.py` uses `python -m SimpleHTTPServer` (Python 2). On Python 3 use
   `python3 -m http.server 80`.
 - Code expects directories like `/home/mininet/webserver`.

@@ -2,41 +2,53 @@
 
 ## What this project is
 An SDN lab: Mininet simulates a network, a Ryu controller collects flow statistics every
-10 s, a Random Forest (scikit-learn) classifies flows as normal (0) or DDoS (1), and the
-mitigation module blocks the attacked port. **There is no web interface** - it is
-command-line / SDN based. The only parts that run on Windows are the ML scripts in `Codes/ml`.
+10 s, machine learning classifies flows as normal (0) or DDoS (1), and a mitigation step
+blocks attack traffic. On Windows you run the **web dashboard** (simulation); the live network
+parts need Linux.
 
 ## Versions
-- Python 3.14.2 (works; no older Python needed for the ML scripts).
-- Pinned in `requirements.txt`: pandas 3.1.1, scikit-learn 1.9.1, matplotlib 3.11.2, numpy 2.5.5.
+- Python 3.14.2.
+- Pinned in `requirements.txt`: pandas 3.1.1, scikit-learn 1.9.1, matplotlib 3.11.2,
+  numpy 2.5.5, joblib 1.6.0, streamlit 1.67.0, plotly 7.1.0.
 - Original (unpinned) file kept as `requirements_old.txt`.
 
-## Start again next time (PowerShell)
-```powershell
-cd "C:\Users\DELL\Desktop\kits projects\DDoS-Attack-Detection-and-Mitigation"
-git switch update-packages
-python -m venv venv                  # only if venv/ does not exist yet
-.\venv\Scripts\Activate.ps1          # if blocked: Set-ExecutionPolicy -Scope Process Bypass
-pip install -r requirements.txt
-# put your FlowStatsfile.csv in the folder you run from, then:
-python Codes\ml\RF.py                # Random Forest result + confusion matrix + chart
-python Codes\ml\ML.py                # compare LR, KNN, NB, DT, RF
-```
-Close a chart window to let the script finish. Stop anything running with Ctrl + C.
-`FlowStatsfile.csv` is not in the repo; you create it in Linux (see below) or supply your own.
-
-## Web dashboard (Streamlit) - http://localhost:8501
+## Web dashboard - http://localhost:8501
+This code is on branch `update-packages`. Until it is merged, it lives in the worktree folder:
 ```powershell
 cd "C:\Users\DELL\Desktop\kits projects\DDoS-Attack-Detection-and-Mitigation\.claude\worktrees\update-packages"
-.\venv\Scripts\Activate.ps1
-streamlit run dashboard\app.py       # open http://localhost:8501 ; stop with Ctrl + C
+python -m venv venv                  # only if venv\ does not exist yet
+.\venv\Scripts\Activate.ps1          # if blocked: Set-ExecutionPolicy -Scope Process Bypass
+pip install -r requirements.txt      # only the first time
+streamlit run dashboard\app.py       # stop with Ctrl + C
 ```
-(If you merge the branch, run it from the main project folder instead; recreate `venv` there.)
-Tabs: **Live detection** (pick a 10 s window: traffic chart, normal-vs-DDoS verdict, victim host,
-simulated mitigation action), **Model accuracy** (LR/KNN/NB/DT/RF comparison + confusion matrix),
-**Data**. Uses synthetic sample traffic by default, or upload your own `FlowStatsfile.csv`.
-The dashboard re-implements the pipeline; the original code is unchanged and the mitigation
-shown is simulated (the real one needs Mininet + Ryu on Linux).
+After merging, run the same commands from the main project folder.
+
+If the dashboard was started in the background and you need to stop it:
+```powershell
+Get-NetTCPConnection -LocalPort 8501 -State Listen |
+  ForEach-Object { Get-CimInstance Win32_Process -Filter "ProcessId=$($_.OwningProcess)" } |
+  Select-Object ProcessId, CommandLine      # check that it is "streamlit run dashboard/app.py"
+Stop-Process -Id <ProcessId>
+```
+
+## Command line tools and tests
+```powershell
+python -m ddos sample  --out data
+python -m ddos train   --data data\synthetic_FlowStatsfile.csv --out models\random_forest.joblib
+python -m ddos predict --model models\random_forest.joblib --data data\synthetic_monitor.csv
+python -m unittest discover -s tests -t .
+```
+
+## Original ML scripts
+They read `FlowStatsfile.csv` from the folder you run them in:
+```powershell
+cd data
+copy synthetic_FlowStatsfile.csv FlowStatsfile.csv   # or put your real file here
+python ..\Codes\ml\RF.py             # Random Forest result + confusion matrix + chart
+python ..\Codes\ml\ML.py             # compare LR, KNN, NB, DT, RF
+```
+Close a chart window to let the script finish. These scripts use identifier columns as
+features, so their scores differ in method from the dashboard's.
 
 ## Linux-only parts (Mininet, Open vSwitch, hping3, Ryu) - run in WSL2
 In PowerShell as Administrator (then reboot): `wsl --install -d Ubuntu-22.04`
@@ -51,23 +63,12 @@ pip install "setuptools<58" "eventlet==0.30.2" ryu pandas scikit-learn
 Run order: see section C of `SETUP_WINDOWS.md` (collect benign data -> collect attack data ->
 `ryu-manager controller.py` + `sudo python3 topology.py`). Use `127.0.0.1` as the controller IP
 in `Codes/mininet/topology.py`. If WSL2 lacks Open vSwitch kernel modules, use a VirtualBox
-Ubuntu VM instead.
+Ubuntu VM instead. **None of this has been run or verified on this machine.**
 
-## Public link options (nothing is deployed yet)
-Only relevant if a web dashboard is added.
+## Public link options (nothing is deployed)
 | Option | Needs | Notes |
 |---|---|---|
-| Streamlit Community Cloud | GitHub account + pushed repo (free account) | Permanent link for a Streamlit app |
-| Render | Account, Flask/Gunicorn app, GitHub repo | Free tier sleeps when idle |
+| Streamlit Community Cloud | GitHub account + pushed repo (free account) | Remove `address = "localhost"` from `.streamlit/config.toml` |
 | ngrok / cloudflared tunnel | Free account/binary | Temporary link to your PC; only while it runs |
 
-## What changed on this branch
-- `Codes/ml/*.py`: matplotlib style `seaborn-darkgrid` renamed to
-  `seaborn-v0_8-darkgrid` (old name removed in matplotlib 3.8; same look).
-- `requirements.txt` pinned; `.gitignore` added (venv, caches, CSVs).
-
-## Status
-Working: venv, pinned packages (`pip check` clean), all `Codes/ml` scripts run on a synthetic
-CSV in the real column format (accuracy numbers from that test are NOT real results).
-Not working / not run: Ryu controller, Mininet, hping3 (need Linux), real dataset (missing),
-web dashboard (not built yet).
+The dashboard has no login. Do not expose it publicly with private data.

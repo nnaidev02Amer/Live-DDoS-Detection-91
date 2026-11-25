@@ -170,12 +170,12 @@ class SimpleMonitor13(switchm.SimpleSwitch13):
             legitimate_trafic = 0
             ddos_trafic = 0
 
-            for i in y_flow_pred:
+            for row, i in enumerate(y_flow_pred):
                 if i == 0:
                     legitimate_trafic = legitimate_trafic + 1
                 else:
                     ddos_trafic = ddos_trafic + 1
-                    victim = int(predict_flow_dataset.iloc[i, 5])%20
+                    victim = int(predict_flow_dataset.iloc[row, 5])%20
                     
                     
                     
